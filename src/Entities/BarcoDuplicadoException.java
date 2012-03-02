@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BatalhaNaval.Entities;
 
 /**
  *
- * @author Lopes
+ * @author Diego Lopes de Mesquita, diegolopes.si@gmail.com
+ * 
  */
 public class BarcoDuplicadoException extends RuntimeException {
 

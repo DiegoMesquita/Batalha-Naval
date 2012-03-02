@@ -1,25 +1,24 @@
 package BatalhaNaval.Entities;
 
+/**
+ *
+ * @author Diego Lopes de Mesquita, diegolopes.si@gmail.com
+ * 
+ */
 import java.util.ArrayList;
 
 public class Tabuleiro {
 
-    public static String tabuleiro[][] = new String[15][15];
-    public static final int LARG_MIN = 3;
-    public static final int ALT_MIN = 3;
+    //public static String tabuleiro[][] = new String[15][15];
     private ArrayList<Embarcacao> embarcacoes = new ArrayList<Embarcacao>();
+    private ArrayList<Embarcacao> embarcacoesTabuleiro1 = new ArrayList<Embarcacao>();
+    private ArrayList<Embarcacao> embarcacoesTabuleiro2 = new ArrayList<Embarcacao>();
     private int largura;
     private int altura;
-    private int quantidadeBarcos;
 
-    //A quantidade de barcos sempre será 0 no inicio do jogo
     public Tabuleiro() {
-        this.largura = this.LARG_MIN;
-        this.altura = this.ALT_MIN;
-        this.quantidadeBarcos = 0;
     }
 
-    // X representa a etapa de criação do tabuleiro 1 elemento que deve ser desenhado no jogo
     public void criarJogo(int largura, int altura) {
         if (largura <= 0) {
             throw new TamanhoInvalidoException("Largura invalida: " + largura);
@@ -27,7 +26,7 @@ public class Tabuleiro {
         if (altura <= 0) {
             throw new TamanhoInvalidoException("Altura invalida: " + altura);
         }
-        if (largura < LARG_MIN || altura < ALT_MIN) {
+        if (largura < 3 || altura < 3) {
             throw new TamanhoInvalidoException("Largura e Altura devem ser maiores que 2");
         }
 
@@ -44,11 +43,15 @@ public class Tabuleiro {
     }
 
     public int getQuantidadeBarcos() {
-        return this.quantidadeBarcos;
+        return embarcacoes.size();
     }
 
-    public void setQuantidadedeBarcos(int quantidadedeBarcos) {
-        this.quantidadeBarcos = quantidadeBarcos;
+    public void verificarBarco(String nome) {
+        for (Embarcacao e : embarcacoes) {
+            if (nome.equals(e.getNome())) {
+                throw new BarcoDuplicadoException("Ja existe um barco com nome 'BARCO_GRANDE' no jogo");
+            }
+        }
     }
 
     public void addBarcoNoJogo(String nome, int tamanho) {
@@ -56,19 +59,33 @@ public class Tabuleiro {
             throw new BarcoInvalidoException("Barco nao cabe no tabuleiro");
         }
         if (nome.equals("")) {
-            throw new BarcoInexistenteException("Nome invalido");
+            throw new BarcoInvalidoException("Nome invalido");
         }
-        if(nome.equals("LANCHA")){
-            throw new BarcoInvalidoException("Tipo do barco invalido");
-        }
-        if (nome.equals("BARCO_GRANDE")) {
-            throw new BarcoInexistenteException("Ja existe um barco com nome 'BARCO_GRANDE' no jogo");
-        }
-        
+
         Embarcacao b1 = new Embarcacao(nome, tamanho);
         embarcacoes.add(b1);
     }
-    public void addBarcoNoTabuleiro(String string, int tamanho) {
-        
+
+    public void addBarcoNoTabuleiro1(int tabuleiro, String nome, int li, int ci, int lf, int cf) {
+        if ((li > 15) || (lf > 15) || (ci > 15) || (cf > 15)) {
+            throw new TamanhoInvalidoException("Posicao invalida: menor que barco (15 < 16)");
+        }
+        if ((li < 15) || (lf > 15) || (ci > 15) || (cf > 15)) {
+            throw new TamanhoInvalidoException("Posicao invalida: conflito de coordenada com barco 'BARCO_GRANDE");
+        }
+
+        Embarcacao b2 = new Embarcacao(tabuleiro, nome, li, ci, lf, cf);
+        embarcacoesTabuleiro1.add(b2);
+    }
+
+    public void addBarcoNoTabuleiro(String nome, int tamanho) throws BarcoInvalidoException {
+
+        if (!nome.matches("[.+\\-+\\_+\\d+\\w]+")) {
+            throw new BarcoInvalidoException("Nome deve conter apenas os seguintes caracteres (A..Z), (0..9) e (_-.)");
+        }
+
+        Embarcacao e = new Embarcacao(nome, tamanho);
+        embarcacoes.add(e);
+
     }
 }
