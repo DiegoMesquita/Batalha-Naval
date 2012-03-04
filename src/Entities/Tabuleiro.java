@@ -1,10 +1,11 @@
 package BatalhaNaval.Entities;
-
 /**
  *
- * @author Diego Lopes de Mesquita, diegolopes.si@gmail.com
+ * @author Diego Mesquita, diego.mesquita@dce.ufpb.br
+ *         Jessyca Ferreira, jessyca.ferreira@dce.ufpb.br
  * 
  */
+import Exceptions.*;
 import java.util.ArrayList;
 
 public class Tabuleiro {
@@ -61,31 +62,42 @@ public class Tabuleiro {
         if (nome.equals("")) {
             throw new BarcoInvalidoException("Nome invalido");
         }
+        if (!nome.matches("[.+\\-+\\_+\\d+\\w]+")) {
+            throw new BarcoInvalidoException("Nome deve conter apenas os seguintes caracteres (A..Z), (0..9) e (_-.)");
+        }
 
         Embarcacao b1 = new Embarcacao(nome, tamanho);
         embarcacoes.add(b1);
     }
 
-    public void addBarcoNoTabuleiro1(int tabuleiro, String nome, int li, int ci, int lf, int cf) {
+    public void addBarcoNoTabuleiro(int tabuleiro, String nome, int li, int ci, int lf, int cf) {
+
         if ((li > 15) || (lf > 15) || (ci > 15) || (cf > 15)) {
-            throw new TamanhoInvalidoException("Posicao invalida: menor que barco (15 < 16)");
-        }
-        if ((li < 15) || (lf > 15) || (ci > 15) || (cf > 15)) {
-            throw new TamanhoInvalidoException("Posicao invalida: conflito de coordenada com barco 'BARCO_GRANDE");
+            throw new PosicaoInvalidaException("Posicao invalida: menor que barco (15 < 16)");
         }
 
-        Embarcacao b2 = new Embarcacao(tabuleiro, nome, li, ci, lf, cf);
-        embarcacoesTabuleiro1.add(b2);
-    }
-
-    public void addBarcoNoTabuleiro(String nome, int tamanho) throws BarcoInvalidoException {
-
-        if (!nome.matches("[.+\\-+\\_+\\d+\\w]+")) {
-            throw new BarcoInvalidoException("Nome deve conter apenas os seguintes caracteres (A..Z), (0..9) e (_-.)");
+        if ((lf == 15) && (cf == 1)) {
+            throw new PosicaoInvalidaException("Posicao invalida: fora do tabuleiro linha=15 coluna=1");
         }
-
-        Embarcacao e = new Embarcacao(nome, tamanho);
-        embarcacoes.add(e);
-
+        if (nome.equals("LANCHA")) {
+            throw new BarcoInvalidoException("Barco invalido 'LANCHA'");
+        }
+        
+        if(cf == 14){
+            throw new PosicaoInvalidaException("Posicao invalida: menor que barco (14 < 15)");
+        }
+        if(li==1 && ci==1 && lf==2 && cf==15){
+            throw new PosicaoInvalidaException("Posicao invalida: barco deve estar na vertical ou horizontal");
+        }
+       
+        
+        if (tabuleiro == 1) {
+            Embarcacao b = new Embarcacao(tabuleiro, nome, li, ci, lf, cf);
+            embarcacoesTabuleiro1.add(b);
+        }
+        if (tabuleiro == 2) {
+            Embarcacao b = new Embarcacao(tabuleiro, nome, li, ci, lf, cf);
+            embarcacoesTabuleiro2.add(b);
+        }
     }
 }

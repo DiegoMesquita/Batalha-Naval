@@ -1,8 +1,8 @@
 package BatalhaNaval.Entities;
-
 /**
  *
- * @author Diego Lopes de Mesquita, diegolopes.si@gmail.com
+ * @author Diego Mesquita, diego.mesquita@dce.ufpb.br
+ *         Jessyca Ferreira, jessyca.ferreira@dce.ufpb.br
  * 
  */
 public class Embarcacao {
@@ -31,6 +31,14 @@ public class Embarcacao {
 
     public String getNome() {
         return nome;
+    }
+
+    public int getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public void setTabuleiro(int tabuleiro) {
+        this.tabuleiro = tabuleiro;
     }
 
     public int getCf() {

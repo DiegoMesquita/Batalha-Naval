@@ -1,12 +1,12 @@
-package BatalhaNaval.Entities;
-
+package Exceptions;
 /**
  *
- * @author Diego Lopes de Mesquita, diegolopes.si@gmail.com
+ * @author Diego Mesquita, diego.mesquita@dce.ufpb.br
+ *         Jessyca Ferreira, jessyca.ferreira@dce.ufpb.br
  * 
  */
 public class BarcoInvalidoException extends RuntimeException {
-    public BarcoInvalidoException(String s){
-        super(s);
+    public BarcoInvalidoException(String msg){
+        super(msg);
     }
 }

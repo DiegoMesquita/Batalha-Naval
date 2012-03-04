@@ -5,9 +5,9 @@ package Exceptions;
  *         Jessyca Ferreira, jessyca.ferreira@dce.ufpb.br
  * 
  */
-public class BarcoDuplicadoException extends RuntimeException {
+public class PosicaoInvalidaException extends RuntimeException {
 
-    public BarcoDuplicadoException(String msg) {
+    public PosicaoInvalidaException(String msg) {
         super(msg);
     }
 }
