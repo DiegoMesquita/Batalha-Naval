@@ -25,6 +25,7 @@ public class TabuleiroTest {
     @Before
     public void setUp() {
         facade.criarJogo(20, 10);
+        tabuleiro.criarJogo(20, 10);
     }
 
     @Test
@@ -119,7 +120,7 @@ public class TabuleiroTest {
 
     @Test
     public void testGetQuantidadeBarcos1() {
-        facade.addBarcoNoJogo("BARCO_GRANDE", 15);
+        tabuleiro.addBarcoNoJogo("BARCO_GRANDE", 15);
         int expResult = 1;
         int result = tabuleiro.quantidadeBarcos();
         assertEquals(expResult, result);
@@ -127,8 +128,8 @@ public class TabuleiroTest {
 
     @Test
     public void testGetQuantidadeBarcos2() {
-        facade.addBarcoNoJogo("BARCO_GRANDE", 15);
-        facade.addBarcoNoJogo("LANCHA", 3);
+        tabuleiro.addBarcoNoJogo("BARCO_GRANDE", 15);
+        tabuleiro.addBarcoNoJogo("LANCHA", 3);
         int expResult = 2;
         int result = tabuleiro.quantidadeBarcos();
         assertEquals(expResult, result);
