@@ -1,10 +1,9 @@
 package BatalhaNaval.Entities;
-/**
- *
+/*
  * @author Diego Mesquita, diego.mesquita@dce.ufpb.br
  *         Jessyca Ferreira, jessyca.ferreira@dce.ufpb.br
- * 
  */
+
 import Exceptions.*;
 import java.util.ArrayList;
 
@@ -43,7 +42,7 @@ public class Tabuleiro {
         return this.altura;
     }
 
-    public int getQuantidadeBarcos() {
+    public int quantidadeBarcos() {
         return embarcacoes.size();
     }
 
@@ -82,15 +81,14 @@ public class Tabuleiro {
         if (nome.equals("LANCHA")) {
             throw new BarcoInvalidoException("Barco invalido 'LANCHA'");
         }
-        
-        if(cf == 14){
+
+        if (cf == 14) {
             throw new PosicaoInvalidaException("Posicao invalida: menor que barco (14 < 15)");
         }
-        if(li==1 && ci==1 && lf==2 && cf==15){
+        if (li == 1 && ci == 1 && lf == 2 && cf == 15) {
             throw new PosicaoInvalidaException("Posicao invalida: barco deve estar na vertical ou horizontal");
         }
-       
-        
+
         if (tabuleiro == 1) {
             Embarcacao b = new Embarcacao(tabuleiro, nome, li, ci, lf, cf);
             embarcacoesTabuleiro1.add(b);
